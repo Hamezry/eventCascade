@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-
 export function middleware(req: NextRequest) {
   const { cookies, nextUrl } = req;
 
@@ -10,19 +9,15 @@ export function middleware(req: NextRequest) {
   const token = cookies.get("afex-payment-cookie");
   const permissionsCookie = cookies.get("permissions")?.value;
 
-
   /**
    * STEP 2: DEFINE CONDITIONS FOR ROUTES MATCHING
    */
   const isAuthRoute = nextUrl.pathname.startsWith("/");
 
-
-
   /**
    * STEP 3: CLONE THE INCOMING URL TO ALLOW FOR REDIRECTS AND REWRITES
    */
   const url = nextUrl.clone();
-
 
   if (!token?.value && !isAuthRoute) {
     url.pathname = "/";
@@ -33,13 +28,9 @@ export function middleware(req: NextRequest) {
    */
 
   if (!!token?.value) {
- 
-      url.pathname = "/";
-      url.search = "";
-      return NextResponse.redirect(url);
-   
-
-    return NextResponse.next();
+    url.pathname = "/";
+    url.search = "";
+    return NextResponse.redirect(url);
   } else {
     cookies.delete("");
   }
@@ -51,4 +42,3 @@ export const config = {
   matcher:
     "/((?!api|_next/static|_next/image|favicon.ico|icon.svg|assets|locales.*\\..*).*)",
 };
-
