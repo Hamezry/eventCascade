@@ -1,7 +1,7 @@
 import { authMiddleware } from "@clerk/nextjs/server";
 
 export default authMiddleware({
-  ignoredRoutes: [
+  publicRoutes: [
     "/((?!api|trpc))(_next.*|.+.[w]+$)", // API Route
     "/((?!.+\\.[\\w]+$|_next).*)", // Image Routes
     "/", // Home Route
@@ -10,3 +10,7 @@ export default authMiddleware({
     "/assets",
   ],
 });
+
+export const config = {
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+};

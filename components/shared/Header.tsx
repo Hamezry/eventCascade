@@ -1,11 +1,15 @@
-import Image from "next/image";
+"use client";
+
 import Link from "next/link";
+
+import { SignOutButton, useSession } from "@clerk/nextjs";
 
 import { Button } from "../ui/button";
 import MobileNav from "./MobileNav";
 import NavItems from "./NavItems";
 
 const Header = () => {
+  const { isSignedIn, session } = useSession();
   return (
     <header className="w-full fixed z-10 bg-cascade_light_cream">
       <div className="wrapper flex items-center justify-between">
@@ -28,12 +32,16 @@ const Header = () => {
         <div className="flex w-32 justify-end gap-3">
           <MobileNav />
 
-          <Button
-            asChild
-            className="rounded-full"
-            size="lg">
-            <Link href="/sign-in">Login</Link>
-          </Button>
+          {isSignedIn ? (
+            <SignOutButton />
+          ) : (
+            <Button
+              asChild
+              className="rounded-full"
+              size="lg">
+              <Link href="/sign-in">Login</Link>
+            </Button>
+          )}
         </div>
       </div>
     </header>
