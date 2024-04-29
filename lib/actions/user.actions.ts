@@ -74,3 +74,13 @@ export async function deleteUser(clerkId: string) {
     handleError(error);
   }
 }
+
+export async function getUserByClerkId(clerkId: string) {
+  try {
+    const user = await User.findOne({ clerkId });
+
+    return JSON.parse(JSON.stringify(user));
+  } catch (error) {
+    handleError(error);
+  }
+}

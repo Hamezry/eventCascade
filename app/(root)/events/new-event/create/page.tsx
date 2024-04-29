@@ -1,8 +1,10 @@
-import EventForm from "@/components/shared/EventForm";
-import { currentUser } from "@clerk/nextjs";
+"use client";
 
-const CreateEvent = async () => {
-  const User = await currentUser();
+import EventForm from "@/components/shared/EventForm";
+import { useSession } from "@clerk/nextjs";
+
+const CreateEvent = () => {
+  const session = useSession();
 
   return (
     <>
@@ -13,7 +15,10 @@ const CreateEvent = async () => {
       </section>
 
       <div className="wrapper my-8">
-        <EventForm userId={User?.id ?? ""} type="Create" />
+        <EventForm
+          clerkId={session.session?.user.id ?? ""}
+          type="Create"
+        />
       </div>
     </>
   );
