@@ -8,13 +8,13 @@ import Card from '@/components/shared/EventsCard';
 import Image from 'next/image'
 import Link from 'next/link'
 import banner from '../../public/assets/images/image-by-rawpixel-com.jpg'
-
+import dateFormatter from '@/lib/utils';
+import { Event } from '@/types';
 
 export default async function Home({ searchParams }: SearchParamProps) {
   const page = Number(searchParams?.page) || 1;
   const searchText = (searchParams?.query as string) || '';
   const category = (searchParams?.category as string) || '';
-const logs = "logers"
 
   const events = await getAllEvents({
     query: searchText,
@@ -22,7 +22,7 @@ const logs = "logers"
     page,
     limit: 6
   })
-console.log(events, logs, "here");
+
  
 
 
@@ -55,7 +55,7 @@ console.log(events, logs, "here");
 
       <section
         id="events"
-        className=" my-8 px-10 flex flex-col gap-8 md:gap-12"
+        className=" my-8 px-20 flex flex-col gap-8 md:gap-12"
       >
         <h2 className="h2-bold">Upcoming Online Events</h2>
 
@@ -64,39 +64,51 @@ console.log(events, logs, "here");
           <CategoryFilter />
         </div> */}
         <div className="grid gap-4 grid-cols-4">
-          
+          {events?.data.map((el: any) => (
+            <Card
+              image={el?.imageUrl}
+              title={el?.title}
+              date={dateFormatter(el?.startDateTime)}
+              description={el?.description}
+              category={el?.category?.name}
+              location={el?.location}
+              organiser={`${el?.organizer?.firstName} ${ el?.organizer?.lastName}`}
+              price={el?.price ?? "free"}
+            />
+          ))}
+
           <Card
             image={banner}
             title="40 Hours Tech Bootcamp"
             date="Tomorrow, 10: 00nam"
             type="Free"
-            subtitle="H MEDIX, City Centre"
+            description="H MEDIX, City Centre"
             organiser="Hamtechub"
           />
           <Card
-         image={banner}
+            image={banner}
             title="40 Hours Tech Bootcamp"
             date="Tomorrow, 10: 00nam"
             type="Free"
-            subtitle="H MEDIX, City Centre"
-            organiser="Hamtechub"
-          />
-
-          <Card
-         image={banner}
-            title="40 Hours Tech Bootcamp"
-            date="Tomorrow, 10: 00nam"
-            type="Free"
-            subtitle="H MEDIX, City Centre"
+            description="H MEDIX, City Centre"
             organiser="Hamtechub"
           />
 
           <Card
-         image={banner}
+            image={banner}
             title="40 Hours Tech Bootcamp"
             date="Tomorrow, 10: 00nam"
             type="Free"
-            subtitle="H MEDIX, City Centre"
+            description="H MEDIX, City Centre"
+            organiser="Hamtechub"
+          />
+
+          <Card
+            image={banner}
+            title="40 Hours Tech Bootcamp"
+            date="Tomorrow, 10: 00nam"
+            type="Free"
+            description="H MEDIX, City Centre"
             organiser="Hamtechub"
           />
         </div>
@@ -114,6 +126,19 @@ console.log(events, logs, "here");
     </>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

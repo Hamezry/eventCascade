@@ -71,7 +71,8 @@ const EventForm = ({ clerkId, type, event, eventId }: EventFormProps) => {
     }
     const user = await getUserByClerkId(clerkId);
 
-    const userId = user._id;
+    const userId = user?._id;
+   
 
     if (type === "Create") {
       try {

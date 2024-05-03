@@ -1,5 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
-
+import dayjs from "dayjs";
 import { twMerge } from "tailwind-merge";
 import qs from "query-string";
 
@@ -9,7 +9,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const formatDateTime = (dateString: Date) => {
+export const formatDateTime = (dateString: Date ) => {
   const dateTimeOptions: Intl.DateTimeFormatOptions = {
     weekday: "short", // abbreviated weekday name (e.g., 'Mon')
     month: "short", // abbreviated month name (e.g., 'Oct')
@@ -18,6 +18,7 @@ export const formatDateTime = (dateString: Date) => {
     minute: "numeric", // numeric minute (e.g., '30')
     hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
   };
+  
 
   const dateOptions: Intl.DateTimeFormatOptions = {
     weekday: "short", // abbreviated weekday name (e.g., 'Mon')
@@ -31,6 +32,7 @@ export const formatDateTime = (dateString: Date) => {
     minute: "numeric", // numeric minute (e.g., '30')
     hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
   };
+
 
   const formattedDateTime: string = new Date(dateString).toLocaleString(
     "en-US",
@@ -102,3 +104,9 @@ export function removeKeysFromQuery({
 export const handleError = (error: unknown) => {
   console.error(error);
 };
+
+
+export default function dateFormatter(val: string) {
+  return val ? dayjs(new Date(val)).format("MMM. D, YYYY, hh:mm a") : "";
+
+}

@@ -13,9 +13,7 @@ const Header = () => {
   return (
     <header className="w-full fixed z-10 bg-cascade_light_cream">
       <div className="wrapper flex items-center justify-between">
-        <Link
-          href="/"
-          className="w-36">
+        <Link href="/" className="w-36">
           {/* <Image
             src="/assets/images/logo.svg"
             width={128}
@@ -26,19 +24,18 @@ const Header = () => {
         </Link>
 
         <nav className="md:flex-between hidden w-full max-w-xs">
-          <NavItems />
+          <NavItems  isSignedIn= {isSignedIn}/>
         </nav>
 
-        <div className="flex w-32 justify-end gap-3">
+        <div className="flex w-32  gap-3">
           <MobileNav />
 
           {isSignedIn ? (
-            <SignOutButton />
+            <Button asChild className="rounded-full" size="lg">
+              <SignOutButton />
+            </Button>
           ) : (
-            <Button
-              asChild
-              className="rounded-full"
-              size="lg">
+            <Button asChild className="rounded-full" size="lg">
               <Link href="/sign-in">Login</Link>
             </Button>
           )}
@@ -49,3 +46,4 @@ const Header = () => {
 };
 
 export default Header;
+
