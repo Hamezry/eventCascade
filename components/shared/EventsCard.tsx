@@ -1,5 +1,6 @@
 import React, { ReactElement, ReactHTML } from "react";
 import Image from "next/image";
+import Link from "next/link";
 interface CardProps {
   image?: any;
   title?: string;
@@ -8,7 +9,7 @@ interface CardProps {
   date?: string;
   price?: string;
   isFree?: boolean;
-  type?: string;
+  id?: string;
   organiser?: string;
   category?: string;
 }
@@ -22,12 +23,23 @@ const Card: React.FC<CardProps> = ({
   price,
   isFree,
   category,
-  type,
+  id,
   organiser,
 }) => {
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-      {image && <Image src={image} alt="edit" width={500} height={500} />}
+    <Link
+      className="bg-white py-10 rounded-lg shadow-lg overflow-hidden"
+      href={`/events/${id}`}
+    >
+      {image && (
+        <Image
+          src={image}
+          alt="edit"
+          width={500}
+          height={200}
+          className="w-full object-fill h-64"
+        />
+      )}
       <div className="p-4">
         {title && <h2 className="text-xl font-semibold mb-2">{title}</h2>}
         {description && (
@@ -69,20 +81,11 @@ const Card: React.FC<CardProps> = ({
           </p>
         )}
       </div>
-    </div>
+    </Link>
   );
 };
 
 export default Card;
-
-
-
-
-
-
-
-
-
 
 
 

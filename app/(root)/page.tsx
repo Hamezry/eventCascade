@@ -1,31 +1,31 @@
-import CategoryFilter from '@/components/shared/CategoryFilter';
-import Collection from '@/components/shared/Collection'
-import Search from '@/components/shared/Search';
-import { Button } from '@/components/ui/button'
-import { getAllEvents, getRelatedEventsByCategory } from '@/lib/actions/event.actions';
-import { SearchParamProps } from '@/types';
-import Card from '@/components/shared/EventsCard';
-import Image from 'next/image'
-import Link from 'next/link'
-import banner from '../../public/assets/images/image-by-rawpixel-com.jpg'
-import dateFormatter from '@/lib/utils';
-import { Event } from '@/types';
+import CategoryFilter from "@/components/shared/CategoryFilter";
+import Collection from "@/components/shared/Collection";
+import Search from "@/components/shared/Search";
+import { Button } from "@/components/ui/button";
+import {
+  getAllEvents,
+  getRelatedEventsByCategory,
+} from "@/lib/actions/event.actions";
+import { SearchParamProps } from "@/types";
+import Card from "@/components/shared/EventsCard";
+import Image from "next/image";
+import Link from "next/link";
+import banner from "../../public/assets/images/image-by-rawpixel-com.jpg";
+import dateFormatter from "@/lib/utils";
+
 
 export default async function Home({ searchParams }: SearchParamProps) {
   const page = Number(searchParams?.page) || 1;
-  const searchText = (searchParams?.query as string) || '';
-  const category = (searchParams?.category as string) || '';
+  const searchText = (searchParams?.query as string) || "";
+  const category = (searchParams?.category as string) || "";
 
   const events = await getAllEvents({
     query: searchText,
     category,
     page,
-    limit: 6
-  })
-
- 
-
-
+    limit: 6,
+  });
+console.log(events, 'events')
   return (
     <>
       <section className=" bg-dotted-pattern bg-contain py-5 md:py-10">
@@ -63,54 +63,21 @@ export default async function Home({ searchParams }: SearchParamProps) {
           <Search />
           <CategoryFilter />
         </div> */}
-        <div className="grid gap-4 grid-cols-4">
+        <div className="grid gap-4 py-6 grid-cols-4">
           {events?.data.map((el: any) => (
             <Card
+            key={el._id}
+              id={el?._id}
               image={el?.imageUrl}
               title={el?.title}
               date={dateFormatter(el?.startDateTime)}
               description={el?.description}
               category={el?.category?.name}
               location={el?.location}
-              organiser={`${el?.organizer?.firstName} ${ el?.organizer?.lastName}`}
+              organiser={`${el?.organizer?.firstName} ${el?.organizer?.lastName}`}
               price={el?.price ?? "free"}
             />
           ))}
-
-          <Card
-            image={banner}
-            title="40 Hours Tech Bootcamp"
-            date="Tomorrow, 10: 00nam"
-            type="Free"
-            description="H MEDIX, City Centre"
-            organiser="Hamtechub"
-          />
-          <Card
-            image={banner}
-            title="40 Hours Tech Bootcamp"
-            date="Tomorrow, 10: 00nam"
-            type="Free"
-            description="H MEDIX, City Centre"
-            organiser="Hamtechub"
-          />
-
-          <Card
-            image={banner}
-            title="40 Hours Tech Bootcamp"
-            date="Tomorrow, 10: 00nam"
-            type="Free"
-            description="H MEDIX, City Centre"
-            organiser="Hamtechub"
-          />
-
-          <Card
-            image={banner}
-            title="40 Hours Tech Bootcamp"
-            date="Tomorrow, 10: 00nam"
-            type="Free"
-            description="H MEDIX, City Centre"
-            organiser="Hamtechub"
-          />
         </div>
 
         {/* <Collection
@@ -126,23 +93,4 @@ export default async function Home({ searchParams }: SearchParamProps) {
     </>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
