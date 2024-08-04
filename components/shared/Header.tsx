@@ -2,14 +2,15 @@
 
 import Link from "next/link";
 
-import { SignOutButton, useSession } from "@clerk/nextjs";
+import { SignOutButton, useSession, SignUp } from "@clerk/nextjs";
 
 import { Button } from "../ui/button";
 import MobileNav from "./MobileNav";
 import NavItems from "./NavItems";
 
 const Header = () => {
-  const { isSignedIn, session } = useSession();
+  const { isSignedIn } = useSession();
+
   return (
     <header className="w-full fixed z-10 bg-cascade_light_cream">
       <div className="wrapper flex items-center justify-between">

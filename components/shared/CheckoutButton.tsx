@@ -15,16 +15,16 @@ const CheckoutButton = ({ event }: { event: IEvent }) => {
     <div className="flex items-center gap-3">
       {hasEventFinished ? (
         <p className="p-2 text-red-400">
-           Event is free.
+           Event has expired
         </p>
       ) : (
         <>
-          <Button
+          {/* <Button
             asChild
             className="button rounded-full"
             size="lg">
             <Link href="/sign-in">Get Tickets</Link>
-          </Button>
+          </Button> */}
 
           <Checkout
             event={event}

@@ -1,3 +1,5 @@
+
+
 import CategoryFilter from "@/components/shared/CategoryFilter";
 import Collection from "@/components/shared/Collection";
 import Search from "@/components/shared/Search";
@@ -10,22 +12,19 @@ import { SearchParamProps } from "@/types";
 import Card from "@/components/shared/EventsCard";
 import Image from "next/image";
 import Link from "next/link";
-import banner from "../../public/assets/images/image-by-rawpixel-com.jpg";
 import dateFormatter from "@/lib/utils";
-
 
 export default async function Home({ searchParams }: SearchParamProps) {
   const page = Number(searchParams?.page) || 1;
   const searchText = (searchParams?.query as string) || "";
   const category = (searchParams?.category as string) || "";
-
   const events = await getAllEvents({
     query: searchText,
     category,
     page,
     limit: 6,
   });
-console.log(events, 'events')
+
   return (
     <>
       <section className=" bg-dotted-pattern bg-contain py-5 md:py-10">
@@ -66,7 +65,7 @@ console.log(events, 'events')
         <div className="grid gap-4 py-6 grid-cols-4">
           {events?.data.map((el: any) => (
             <Card
-            key={el._id}
+              key={el._id}
               id={el?._id}
               image={el?.imageUrl}
               title={el?.title}
@@ -88,7 +87,7 @@ console.log(events, 'events')
           limit={6}
           page={page}
           totalPages={events?.totalPages}
-        /> */}
+        />  */}
       </section>
     </>
   );

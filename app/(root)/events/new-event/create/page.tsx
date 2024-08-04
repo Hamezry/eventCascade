@@ -5,6 +5,7 @@ import { useSession } from "@clerk/nextjs";
 
 const CreateEvent = () => {
   const session = useSession();
+  console.log(session.session?.user.id, 'session');
 
   return (
     <>
@@ -25,3 +26,5 @@ const CreateEvent = () => {
 };
 
 export default CreateEvent;
+
+
