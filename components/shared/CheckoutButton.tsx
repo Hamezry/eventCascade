@@ -14,22 +14,17 @@ const CheckoutButton = ({ event }: { event: IEvent }) => {
   return (
     <div className="flex items-center gap-3">
       {hasEventFinished ? (
-        <p className="p-2 text-red-400">
-           Event is free.
-        </p>
+        <p className="p-2 text-red-400">Event has expired</p>
       ) : (
         <>
-          <Button
+          {/* <Button
             asChild
             className="button rounded-full"
             size="lg">
             <Link href="/sign-in">Get Tickets</Link>
-          </Button>
+          </Button> */}
 
-          <Checkout
-            event={event}
-            userId={""}
-          />
+          <Checkout event={event} userId={""} />
         </>
       )}
     </div>
