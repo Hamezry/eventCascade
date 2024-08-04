@@ -1,18 +1,11 @@
-import CategoryFilter from "@/components/shared/CategoryFilter";
-import Collection from "@/components/shared/Collection";
-import Search from "@/components/shared/Search";
-import { Button } from "@/components/ui/button";
-import {
-  getAllEvents,
-  getRelatedEventsByCategory,
-} from "@/lib/actions/event.actions";
-import { SearchParamProps } from "@/types";
-import Card from "@/components/shared/EventsCard";
 import Image from "next/image";
 import Link from "next/link";
-import banner from "../../public/assets/images/image-by-rawpixel-com.jpg";
-import dateFormatter from "@/lib/utils";
 
+import Card from "@/components/shared/EventsCard";
+import { Button } from "@/components/ui/button";
+import { getAllEvents } from "@/lib/actions/event.actions";
+import dateFormatter from "@/lib/utils";
+import { SearchParamProps } from "@/types";
 
 export default async function Home({ searchParams }: SearchParamProps) {
   const page = Number(searchParams?.page) || 1;
@@ -25,7 +18,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
     page,
     limit: 6,
   });
-console.log(events, 'events')
+
   return (
     <>
       <section className=" bg-dotted-pattern bg-contain py-5 md:py-10">
@@ -38,7 +31,10 @@ console.log(events, 'events')
               Book and learn helpful tips from 3,168+ mentors in world-class
               companies with our global community.
             </p>
-            <Button size="lg" asChild className="button w-full sm:w-fit">
+            <Button
+              size="lg"
+              asChild
+              className="button w-full sm:w-fit">
               <Link href="#events">Explore Now</Link>
             </Button>
           </div>
@@ -55,8 +51,7 @@ console.log(events, 'events')
 
       <section
         id="events"
-        className=" my-8 px-20 flex flex-col gap-8 md:gap-12"
-      >
+        className=" my-8 px-20 flex flex-col gap-8 md:gap-12">
         <h2 className="h2-bold">Upcoming Online Events</h2>
 
         {/* <div className="flex w-full flex-col gap-5 md:flex-row">
@@ -66,7 +61,7 @@ console.log(events, 'events')
         <div className="grid gap-4 py-6 grid-cols-4">
           {events?.data.map((el: any) => (
             <Card
-            key={el._id}
+              key={el._id}
               id={el?._id}
               image={el?.imageUrl}
               title={el?.title}
@@ -93,4 +88,3 @@ console.log(events, 'events')
     </>
   );
 }
-

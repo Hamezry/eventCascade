@@ -18,7 +18,6 @@ export const connectToDatabase = async () => {
         bufferCommands: false,
       })
       .then((mongoose) => {
-        console.log("DATABASE Connection Established");
         return mongoose;
       });
 

@@ -1,41 +1,27 @@
-"use client";
+import { useSearchParams } from "next/navigation";
 
-import React from "react";
-import { SearchParamProps } from "@/types";
-import { useSession } from "@clerk/nextjs";
+import { getOrdersByUser } from "@/lib/actions/order.actions";
+import { currentUser } from "@clerk/nextjs/server";
 
-import  { Button } from "@/components/ui/button";
-import { SignUpButton } from "@clerk/nextjs";
+export default async function MyTickets() {
+  const user = await currentUser();
+  const params = useSearchParams();
 
-const MyTickets = ({ searchParams }: SearchParamProps) => {
-  const { isSignedIn } = useSession();
-  const session = useSession();
-  const userId = session?.session?.user?.id;
-  console.log(userId, isSignedIn, "hdyd");
+  if (user) {
+    const tickets = await getOrdersByUser({
+      userId: user.publicMetadata.userId as string,
+      limit: 10,
+      page: 1,
+    });
 
-  const limit = 6;
-  const page = Number(searchParams?.page) || 1;
+    /**
+     * You can get tickets from {tickets.data}
+     *
+     */
+    return (
+      <div className="py-5 md:py-10">User Tickets ({tickets?.data.length})</div>
+    );
+  }
 
-  return (
-    <div>
-      {isSignedIn && isSignedIn ? (
-        <section className="wrapper my-8 flex flex-col gap-8 md:gap-12">
-          <h2 className="h2-bold">My Tickets</h2>
-          {userId && <div>All tickets</div>}
-        </section>
-      ) : (
-        <section className="flex flex-col items-center mt-36 justify-center text-center my-8 gap-4">
-          <h4>To view tickets click on signup</h4>
-          <div className="w-60">
-            <Button>
-              {" "}
-              <SignUpButton />
-            </Button>
-          </div>
-        </section>
-      )}
-    </div>
-  );
-};
-
-export default MyTickets;
+  return <div>No tickets</div>;
+}
