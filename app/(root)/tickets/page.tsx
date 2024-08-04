@@ -1,11 +1,12 @@
-import { useSearchParams } from "next/navigation";
-
 import { getOrdersByUser } from "@/lib/actions/order.actions";
 import { currentUser } from "@clerk/nextjs/server";
 
-export default async function MyTickets() {
+export default async function MyTickets({
+  searchParams,
+}: {
+  searchParams: URLSearchParams;
+}) {
   const user = await currentUser();
-  const params = useSearchParams();
 
   if (user) {
     const tickets = await getOrdersByUser({
