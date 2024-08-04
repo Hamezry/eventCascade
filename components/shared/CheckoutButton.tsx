@@ -1,14 +1,18 @@
 "use client";
 
-import Link from "next/link";
 import React from "react";
 
 import { IEvent } from "@/lib/database/models/event.model";
 
-import { Button } from "../ui/button";
 import Checkout from "./Checkout";
 
-const CheckoutButton = ({ event }: { event: IEvent }) => {
+const CheckoutButton = ({
+  event,
+  userId,
+}: {
+  event: IEvent;
+  userId: string;
+}) => {
   const hasEventFinished = new Date(event?.endDateTime) < new Date();
 
   return (
@@ -24,7 +28,10 @@ const CheckoutButton = ({ event }: { event: IEvent }) => {
             <Link href="/sign-in">Get Tickets</Link>
           </Button> */}
 
-          <Checkout event={event} userId={""} />
+          <Checkout
+            event={event}
+            userId={userId}
+          />
         </>
       )}
     </div>

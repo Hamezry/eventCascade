@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import CheckoutButton from "@/components/shared/CheckoutButton";
 import Collection from "@/components/shared/Collection";
 import {
@@ -6,7 +8,7 @@ import {
 } from "@/lib/actions/event.actions";
 import { formatDateTime } from "@/lib/utils";
 import { SearchParamProps } from "@/types";
-import Image from "next/image";
+import { currentUser } from "@clerk/nextjs/server";
 
 const EventDetails = async ({
   params: { id },
@@ -18,8 +20,7 @@ const EventDetails = async ({
     eventId: event?._id,
     page: searchParams?.page as string,
   });
-
-  // console.log(event, "events")
+  const user = await currentUser();
 
   return (
     <>
@@ -56,7 +57,10 @@ const EventDetails = async ({
               </div>
             </div>
 
-            <CheckoutButton event={event} />
+            <CheckoutButton
+              event={event}
+              userId={(user?.publicMetadata.userId as string) ?? ""}
+            />
 
             <div className="flex flex-col gap-5">
               <div className="flex gap-2 md:gap-3">
