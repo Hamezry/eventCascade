@@ -22,6 +22,12 @@ const EventDetails = async ({
   });
   const user = await currentUser();
 
+  // Check if the logged-in user is the event organizer
+  const isOrganizer =
+    user &&
+    event?.organizer?.firstName === user?.firstName &&
+    event?.organizer?.lastName === user?.lastName;
+
   return (
     <>
       <section className="flex justify-center bg-primary-50 bg-dotted-pattern bg-contain">
@@ -57,10 +63,13 @@ const EventDetails = async ({
               </div>
             </div>
 
-            <CheckoutButton
-              event={event}
-              userId={(user?.publicMetadata.userId as string) ?? ""}
-            />
+            {/* Conditionally render CheckoutButton */}
+            {!isOrganizer && (
+              <CheckoutButton
+                event={event}
+                userId={(user?.publicMetadata.userId as string) ?? ""}
+              />
+            )}
 
             <div className="flex flex-col gap-5">
               <div className="flex gap-2 md:gap-3">
@@ -125,3 +134,4 @@ const EventDetails = async ({
 };
 
 export default EventDetails;
+

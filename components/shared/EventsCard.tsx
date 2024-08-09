@@ -69,7 +69,7 @@ const Card: React.FC<CardProps> = ({
             {date}
           </p>
         )}
-        {price && <p className="text-gray-600 mb-2">{price}</p>}
+        {price && <p className="text-gray-600 mb-2"> £{price}</p>}
 
         {isFree && (
           <p className="text-gray-700 font-bold mb-2">Type: {isFree}</p>
@@ -86,6 +86,7 @@ const Card: React.FC<CardProps> = ({
 };
 
 export default Card;
+
 
 
 
