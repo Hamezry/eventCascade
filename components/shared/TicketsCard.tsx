@@ -32,14 +32,14 @@ const TicketCard: React.FC<TicketCardProps> = ({
   buyer,
 }) => {
   if (!event) {
-    return null; // Or return null or any placeholder UI
+    return <p></p>; // Or return null or any placeholder UI
   }
 
   const currentDateTime = new Date().toISOString();
 
   // Check if the event has expired
   if (event.endDateTime < currentDateTime) {
-    return null; // Don't render anything if the event has expired
+    return <></>; // Don't render anything if the event has expired
   }
 
   const {
