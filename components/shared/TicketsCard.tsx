@@ -31,6 +31,17 @@ const TicketCard: React.FC<TicketCardProps> = ({
   event,
   buyer,
 }) => {
+  if (!event) {
+    return null; // Or return null or any placeholder UI
+  }
+
+  const currentDateTime = new Date().toISOString();
+
+  // Check if the event has expired
+  if (event.endDateTime < currentDateTime) {
+    return null; // Don't render anything if the event has expired
+  }
+
   const {
     title,
     description,
@@ -97,35 +108,9 @@ const TicketCard: React.FC<TicketCardProps> = ({
         {price && <p className="text-gray-600 mb-2">Price: £{price}</p>}
         {isFree && <p className="text-gray-700 font-bold mb-2">Type: Free</p>}
         {!isFree && <p className="text-gray-700 font-bold mb-2">Type: Paid</p>}
-        {/* Uncomment these if you need to show stripeId, buyer, and createdAt */}
-        {/* {stripeId && (
-          <p className="text-gray-600 mb-2">
-            {" "}
-            <span className="font-medium">Stripe ID: </span>
-            {stripeId}
-          </p>
-        )}
-        {buyer && (
-          <p className="text-gray-600 mb-2">
-            {" "}
-            <span className="font-medium">Buyer: </span>
-            {buyer}
-          </p>
-        )}
-        {createdAt && (
-          <p className="text-gray-600 mb-2">
-            {" "}
-            <span className="font-medium">Created At: </span>
-            {new Date(createdAt).toLocaleDateString()}{" "}
-            {new Date(createdAt).toLocaleTimeString()}
-          </p>
-        )} */}
       </div>
     </div>
   );
 };
 
 export default TicketCard;
-
-
-
